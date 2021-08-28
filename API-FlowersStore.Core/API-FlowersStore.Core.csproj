@@ -5,8 +5,4 @@
     <RootNamespace>API_FlowersStore.Core</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="CoreModels\" />
-  </ItemGroup>
-
 </Project>
