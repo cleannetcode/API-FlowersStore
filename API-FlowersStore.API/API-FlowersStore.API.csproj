@@ -9,4 +9,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\API-FlowersStore.BusinessLogic\API-FlowersStore.BusinessLogic.csproj" />
+    <ProjectReference Include="..\API-FlowersStore.Core\API-FlowersStore.Core.csproj" />
+    <ProjectReference Include="..\API-FlowersStore.DataAccess.MSSQL\API-FlowersStore.DataAccess.MSSQL.csproj" />
+  </ItemGroup>
+
 </Project>
