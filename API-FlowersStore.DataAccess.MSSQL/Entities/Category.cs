@@ -1,4 +1,6 @@
-﻿namespace API_FlowersStore.DataAccess.MSSQL.Entities
+﻿using System.Collections.Generic;
+
+namespace API_FlowersStore.DataAccess.MSSQL.Entities
 {
     public class Category
     {
@@ -8,6 +10,8 @@
 
         public string Type { get; set; }
 
-        public Provider Provider { get; set; }
+        public ICollection<User> Users { get; set; }
+
+        public ICollection<Product> Products { get; set; }
     }
 }

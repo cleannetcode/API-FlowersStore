@@ -6,14 +6,16 @@ namespace API_FlowersStore.DataAccess.MSSQL.Entities
     {
         public int Id { get; set; }
 
-        public List<int> ProviderId { get; set; }
+        public int UserId { get; set; }
 
-        public List<int> ProductId { get; set; }
+        public int ProductId { get; set; }
 
-        public List<string> UserServices { get; set; }
+        //public string UserService { get; set; }
+
+        public User User { get; set; }
 
         public Product Product { get; set; }
 
-        public Provider Provider { get; set; }
+        //public List<UserService> UserServices { get; set; }
     }
 }

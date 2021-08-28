@@ -1,12 +1,10 @@
-﻿namespace API_FlowersStore.DataAccess.MSSQL.Entities
+﻿using System.Collections.Generic;
+
+namespace API_FlowersStore.DataAccess.MSSQL.Entities
 {
     public class Product
     {
         public int Id { get; set; }
-
-        public int CategoryId { get; set; }
-
-        public byte[] Image { get; set; }
 
         public string Name { get; set; }
 
@@ -14,8 +12,12 @@
 
         public string Color { get; set; }
 
-        public float Price { get; set; }
+        public decimal Price { get; set; }
 
-        public Category Category { get; set; }
+        public int Amount { get; set; }
+
+        public ICollection<Order> Orders { get; set; }
+
+        public ICollection<Supply> Supplies { get; set; }
     }
 }
