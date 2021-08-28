@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31613.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API-FlowersStore.API", "API-FlowersStore.API.csproj", "{217802EB-78C6-4C22-AFE7-83B11E189105}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{217802EB-78C6-4C22-AFE7-83B11E189105}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{217802EB-78C6-4C22-AFE7-83B11E189105}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{217802EB-78C6-4C22-AFE7-83B11E189105}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{217802EB-78C6-4C22-AFE7-83B11E189105}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {84593CE7-8AAE-4856-A11C-390F6E70D21F}
+	EndGlobalSection
+EndGlobal
