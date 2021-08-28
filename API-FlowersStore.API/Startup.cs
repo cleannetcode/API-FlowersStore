@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System.Collections.Generic;
 
 namespace API_FlowersStore.API
 {
@@ -37,22 +38,18 @@ namespace API_FlowersStore.API
                 options.RequireHttpsMetadata = false;
                 options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                 {
-                    // ������������ �� �������� ������
                     ValidateIssuer = true,
-                    // ��������
+                   
                     ValidIssuer = AuthOptions.ISSUER,
 
-                    // ������������ �� ����������� ������
                     ValidateAudience = true,
-                    // ����������� ������
+                   
                     ValidAudience = AuthOptions.AUDIENCE,
 
-                    // ��������� ������� ������������� ������
                     ValidateLifetime = true,
 
-                    // ������������ �� ���� ������������
                     ValidateIssuerSigningKey = true,
-                    // ���� ������������
+                   
                     IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey()
                 };
             });
