@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace API_FlowersStore.DataAccess.MSSQL.Entities
+namespace API_FlowersStore.Core.CoreModels
 {
     public class Order
     {
@@ -11,9 +11,5 @@ namespace API_FlowersStore.DataAccess.MSSQL.Entities
         public List<int> ProductId { get; set; }
 
         public List<string> UserServices { get; set; }
-
-        public Product Product { get; set; }
-
-        public Provider Provider { get; set; }
     }
 }

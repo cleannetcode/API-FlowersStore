@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace API_FlowersStore.DataAccess.MSSQL.Entities
+namespace API_FlowersStore.Core.CoreModels
 {
-    public class Order
+    public class Supply
     {
         public int Id { get; set; }
 
@@ -10,9 +10,9 @@ namespace API_FlowersStore.DataAccess.MSSQL.Entities
 
         public List<int> ProductId { get; set; }
 
-        public List<string> UserServices { get; set; }
+        public List<string> SupplyServices { get; set; }
 
-        public Product Product { get; set; }
+        public Category Category { get; set; }
 
         public Provider Provider { get; set; }
     }
