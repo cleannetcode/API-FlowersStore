@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
-
-namespace API_FlowersStore.Core.CoreModels
+﻿namespace API_FlowersStore.Core.CoreModels
 {
     public class Order
     {
         public int Id { get; set; }
 
-        public List<int> ProviderId { get; set; }
+        public int UserId { get; set; }
 
-        public List<int> ProductId { get; set; }
+        public int ProductId { get; set; }
 
-        public List<string> UserServices { get; set; }
+        public User User { get; set; }
+
+        public Product Product { get; set; }
     }
 }

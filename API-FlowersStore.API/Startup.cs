@@ -1,17 +1,12 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using API_FlowersStore.DataAccess.MSSQL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace API_FlowersStore.API
 {
@@ -27,6 +22,10 @@ namespace API_FlowersStore.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<APIFlowersStoreDbContext>(builder =>
+            {
+                builder.UseSqlServer(Configuration.GetConnectionString("APIFlowersStoreDb"));
+            });
 
             services.AddAuthentication(options =>
             {
@@ -38,27 +37,28 @@ namespace API_FlowersStore.API
                 options.RequireHttpsMetadata = false;
                 options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                 {
-                    // валидируется ли издатель токена
+                    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
                     ValidateIssuer = true,
-                    // издатель
+                    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                     ValidIssuer = AuthOptions.ISSUER,
 
-                    // валидируется ли потребитель токена
+                    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
                     ValidateAudience = true,
-                    // потребитель токена
+                    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
                     ValidAudience = AuthOptions.AUDIENCE,
 
-                    // валидация времени существования токена
+                    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
                     ValidateLifetime = true,
 
-                    // валидируется ли ключ безопасности
+                    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                     ValidateIssuerSigningKey = true,
-                    // ключ безопасности
+                    // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                     IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey()
                 };
             });
 
             services.AddControllers();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API_FlowersStore.API", Version = "v1" });
