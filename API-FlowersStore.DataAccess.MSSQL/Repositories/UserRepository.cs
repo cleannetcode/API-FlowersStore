@@ -1,8 +1,5 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using API_FlowersStore.Core.CoreModels;
 using API_FlowersStore.Core.Repositories;
@@ -46,6 +43,16 @@ namespace API_FlowersStore.DataAccess.MSSQL.Repositories
                       .Where(u => u.Name == name && u.Password == password)
                       .AsNoTracking()
                       .FirstOrDefaultAsync();
+
+            return _mapper.Map<Entities.User, Core.CoreModels.User>(user);
+        }
+
+        public async Task<User> GetByUserName(string userName)
+        {
+            var user = await _context.Users
+                     .Where(u => u.Name == userName)
+                     .AsNoTracking()
+                     .FirstOrDefaultAsync();
 
             return _mapper.Map<Entities.User, Core.CoreModels.User>(user);
         }

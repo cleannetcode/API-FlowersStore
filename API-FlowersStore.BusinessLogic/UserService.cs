@@ -41,5 +41,13 @@ namespace API_FlowersStore.BusinessLogic
 
             return _userRepository.GetByNameAndPassword(name, password);
         }
+
+        public Task<User> GetByUserName(string userName)
+        {
+            if (String.IsNullOrEmpty(userName))
+                throw new ArgumentException(nameof(userName));
+
+            return _userRepository.GetByUserName(userName);
+        }
     }
 }
