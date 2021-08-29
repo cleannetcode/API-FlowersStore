@@ -55,7 +55,8 @@ namespace API_FlowersStore.API.Controllers
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, user.Name),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, rolesString)
+                    new Claim(ClaimsIdentity.DefaultRoleClaimType, rolesString),
+                    new Claim("UserId", user.Id.ToString())
                 };
 
                 var symmetricSecurityKey = AuthOptions.GetSymmetricSecurityKey();
