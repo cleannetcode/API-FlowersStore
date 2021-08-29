@@ -36,7 +36,7 @@ namespace API_FlowersStore.API.Controllers
             _mapper = mapper;
         }
 
-        [HttpPost]
+        [HttpPost("CreateOrder")]
         [ProducesResponseType(typeof(OrderResponse), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> CreateOrder(NewOrder[] request)
         {
@@ -52,16 +52,16 @@ namespace API_FlowersStore.API.Controllers
 
             foreach (var f in request)
             {
-                var providerUser = await _userService.GetByUserName(f.ProviderName);
+                var providerUser = _userService.GetByUserName(f.ProviderName).Result;
 
                 if (providerUser == null)
                 {
                     return BadRequest("Provider name is invalid");
                 }
 
-                var product = await _productService.GetByProductName(f.ProductName, providerUser.Id);
+                var product = _productService.GetByProductName(f.ProductName, providerUser.Id).Result;
 
-                if (f.ProductName == null)
+                if (product == null)
                 {
                     return BadRequest("Product not found");
                 }
@@ -110,7 +110,7 @@ namespace API_FlowersStore.API.Controllers
             return Ok(orderResponse);
         }
 
-        [HttpGet]
+        [HttpGet("GetOrders")]
         [ProducesResponseType(typeof(OrderResponse), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetOrders()
         {
@@ -154,7 +154,7 @@ namespace API_FlowersStore.API.Controllers
             return Ok(response);
         }
 
-        [HttpGet]
+        [HttpGet("GetProducts")]
         [ProducesResponseType(typeof(ProductResponse[]), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetProducts()
         {
@@ -176,7 +176,7 @@ namespace API_FlowersStore.API.Controllers
             }));
         }
 
-        [HttpGet]
+        [HttpGet("GetProductByProvider")]
         [ProducesResponseType(typeof(ProductResponse[]), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetProductByProvider()
         {

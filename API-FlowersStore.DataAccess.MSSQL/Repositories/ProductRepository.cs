@@ -85,16 +85,33 @@ namespace API_FlowersStore.DataAccess.MSSQL.Repositories
             return _mapper.Map<Entities.Product[], Core.CoreModels.Product[]>(products);
         }
 
-        public async Task<string> Update(Product product)
+        public async Task<string> Update(Product product, int userId)
         {
             if (product == null)
             {
                 throw new ArgumentNullException(nameof(product));
             }
 
-            var memberEntity = _mapper.Map<Core.CoreModels.Product, Entities.Product>(product);
+            var productEnModel = _mapper.Map<Core.CoreModels.Product, Entities.Product>(product);
 
-            _context.Products.Update(memberEntity);
+            await _context.SaveChangesAsync();
+
+            var existedProduct = await _context.Products
+              .FirstOrDefaultAsync(f => f.Name == productEnModel.Name && f.UserId == userId);
+
+            if (existedProduct == null)
+            {
+                throw new ArgumentNullException(nameof(existedProduct));
+            }
+
+            _context.Entry(existedProduct).State = EntityState.Modified;
+
+            existedProduct.Name = productEnModel.Name;
+            existedProduct.Description = productEnModel.Description;
+            existedProduct.Color = productEnModel.Color;
+            existedProduct.Price = productEnModel.Price;
+            existedProduct.Amount = productEnModel.Amount;
+
             await _context.SaveChangesAsync();
 
             return product.Name;

@@ -32,7 +32,7 @@ namespace API_FlowersStore.API.Controllers
             _userService = userService;
         }
 
-        [HttpPost]
+        [HttpPost("CreateProduct")]
         [ProducesResponseType(typeof(CreatedProduct), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> CreateProduct(NewProduct request)
         {
@@ -40,12 +40,12 @@ namespace API_FlowersStore.API.Controllers
 
             var newProduct = _mapper.Map<NewProduct, Core.CoreModels.Product>(request);
 
-            var productName = await _productService.Create(newProduct);
+            var productName = await _productService.Create(newProduct, request.UserId);
 
             return Ok(new CreatedProduct { Name = productName });
         }
 
-        [HttpGet]
+        [HttpGet("GetProducts")]
         [ProducesResponseType(typeof(ProductResponse[]), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetProducts()
         {
@@ -69,7 +69,7 @@ namespace API_FlowersStore.API.Controllers
             }));
         }
 
-        [HttpPost("{update}")]
+        [HttpPost("UpdateProduct")]
         [ProducesResponseType(typeof(CreatedProduct), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> UpdateProduct(NewProduct request)
         {
@@ -77,7 +77,7 @@ namespace API_FlowersStore.API.Controllers
 
             var newProduct = _mapper.Map<NewProduct, Core.CoreModels.Product>(request);
 
-            var productName = await _productService.Update(newProduct);
+            var productName = await _productService.Update(newProduct, request.UserId);
 
             if (string.IsNullOrEmpty(productName))
             {
@@ -87,7 +87,7 @@ namespace API_FlowersStore.API.Controllers
             return Ok(new UpdatedProduct { Name = productName });
         }
 
-        [HttpDelete]
+        [HttpDelete("DeleteProduct")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<IActionResult> DeleteProduct(string ProductName)
         {

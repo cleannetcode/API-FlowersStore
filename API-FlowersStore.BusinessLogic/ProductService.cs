@@ -15,11 +15,18 @@ namespace API_FlowersStore.BusinessLogic
             _productRepository = productRepository;
         }
 
-        public async Task<string> Create(Product newProduct)
+        public async Task<string> Create(Product newProduct, int userId)
         {
             if (newProduct == null)
             {
                 throw new ArgumentNullException(nameof(newProduct));
+            }
+
+            var existedProductName = await _productRepository.GetByName(newProduct.Name, userId);
+
+            if (existedProductName != null)
+            {
+                throw new ArgumentException("Duplicate product name");
             }
 
             var productName = await _productRepository.Add(newProduct);
@@ -32,14 +39,14 @@ namespace API_FlowersStore.BusinessLogic
             return productName;
         }
 
-        public async Task<string> Update(Product product)
+        public async Task<string> Update(Product product, int userId)
         {
             if (product == null)
             {
                 throw new ArgumentNullException(nameof(product));
             }
 
-            var productName = await _productRepository.Add(product);
+            var productName = await _productRepository.Update(product, userId);
 
             if (string.IsNullOrEmpty(productName))
             {

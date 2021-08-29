@@ -5,9 +5,9 @@ namespace API_FlowersStore.Core.Services
 {
     public interface IProductService
     {
-        Task<string> Create(Product newProduct);
+        Task<string> Create(Product newProduct, int userId);
 
-        Task<string> Update(Product product);
+        Task<string> Update(Product product, int userId);
 
         Task<Product[]> Get(int userId);
 

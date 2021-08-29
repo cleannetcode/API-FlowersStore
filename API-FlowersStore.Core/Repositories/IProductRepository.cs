@@ -7,7 +7,7 @@ namespace API_FlowersStore.Core.Repositories
     {
         Task<string> Add(Product newProduct);
 
-        Task<string> Update(Product product);
+        Task<string> Update(Product product, int userId);
 
         Task<Product[]> Get(int userId);
 
