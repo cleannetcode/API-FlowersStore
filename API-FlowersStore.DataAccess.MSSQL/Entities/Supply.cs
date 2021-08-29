@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 
 namespace API_FlowersStore.DataAccess.MSSQL.Entities
 {
@@ -10,11 +10,13 @@ namespace API_FlowersStore.DataAccess.MSSQL.Entities
 
         public int ProductId { get; set; }
 
-        //public string SupplyService { get; set; }
+        public DateTime CreatedDate { get; set; }
 
         public User User { get; set; }
 
         public Product Product { get; set; }
+
+        //public string SupplyService { get; set; }
 
         //public List<string> SupplyServices { get; set; }
     }

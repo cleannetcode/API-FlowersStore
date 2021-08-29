@@ -1,5 +1,4 @@
 ﻿using API_FlowersStore.API.Contracts;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System;

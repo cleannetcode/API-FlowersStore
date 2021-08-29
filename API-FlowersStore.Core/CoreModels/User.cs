@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace API_FlowersStore.Core.CoreModels
 {
@@ -12,9 +13,14 @@ namespace API_FlowersStore.Core.CoreModels
 
         public string Password { get; set; }
 
+        public DateTime CreatedDate { get; set; }
+
         public string Role { get; set; }
 
         public ICollection<Supply> Supplies { get; set; }
+
         public ICollection<Order> Orders { get; set; }
+
+        public ICollection<Product> Products { get; set; }
     }
 }
