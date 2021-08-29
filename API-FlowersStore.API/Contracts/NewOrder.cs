@@ -1,9 +1,18 @@
-﻿namespace API_FlowersStore.API.Contracts
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace API_FlowersStore.API.Contracts
 {
     public class NewOrder
     {
-        public int ProductId { get; set; }
+        [Required]
+        [MaxLength(30)]
+        public string ProviderName { get; set; }
 
-        public int Quantity { get; set; }
+        [Required]
+        [MaxLength(30)]
+        public string ProductName { get; set; }
+
+        [Required]
+        public int? Quantity { get; set; }
     }
 }

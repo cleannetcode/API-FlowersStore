@@ -46,5 +46,15 @@ namespace API_FlowersStore.DataAccess.MSSQL.Repositories
 
             return _mapper.Map<Entities.User, Core.CoreModels.User>(user);
         }
+
+        public async Task<User> GetByUserName(string userName)
+        {
+            var user = await _context.Users
+                     .Where(u => u.Name == userName)
+                     .AsNoTracking()
+                     .FirstOrDefaultAsync();
+
+            return _mapper.Map<Entities.User, Core.CoreModels.User>(user);
+        }
     }
 }

@@ -47,8 +47,8 @@ namespace API_FlowersStore.DataAccess.MSSQL.Configurations
                     new User
                     {
                         Id = 2,
-                        Name = "1800Flowers",
-                        Email = "1-800-Flowers@gmail.com",
+                        Name = "FlowersProvider",
+                        Email = "FlowersProvider@gmail.com",
                         CreatedDate = DateTime.Now,
                         Password = "123",
                         Role = "Provider"
@@ -57,11 +57,31 @@ namespace API_FlowersStore.DataAccess.MSSQL.Configurations
                     new User
                     {
                         Id = 3,
-                        Name = "TheBouqs",
-                        Email = "TheBouqs@gmail.com",
+                        Name = "BouqsCustomer",
+                        Email = "BouqsCustomer@gmail.com",
                         CreatedDate = DateTime.Now,
                         Password = "123",
                         Role = "Customer"
+                    },
+
+                    new User
+                    {
+                        Id = 4,
+                        Name = "RomanCustomer",
+                        Email = "RomanCustomer@gmail.com",
+                        CreatedDate = DateTime.Now,
+                        Password = "123",
+                        Role = "Customer"
+                    },
+
+                    new User
+                    {
+                        Id = 5,
+                        Name = "RomanProvider",
+                        Email = "RomanProvider@gmail.com",
+                        CreatedDate = DateTime.Now,
+                        Password = "123",
+                        Role = "Provider"
                     }
                 }
             );

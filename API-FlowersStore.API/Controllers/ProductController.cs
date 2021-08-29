@@ -4,6 +4,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -19,17 +20,24 @@ namespace API_FlowersStore.API.Controllers
     {
         private readonly IProductService _productService;
         private readonly IMapper _mapper;
+        private readonly IUserService _userService;
 
-        public ProductController(IProductService productService, IMapper mapper)
+        public ProductController(
+            IProductService productService,
+            IMapper mapper,
+            IUserService userService)
         {
             _productService = productService;
             _mapper = mapper;
+            _userService = userService;
         }
 
         [HttpPost]
         [ProducesResponseType(typeof(CreatedProduct), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> CreateProduct(NewProduct request)
         {
+            request.UserId = GetUser();
+
             var newProduct = _mapper.Map<NewProduct, Core.CoreModels.Product>(request);
 
             var productName = await _productService.Create(newProduct);
@@ -38,23 +46,35 @@ namespace API_FlowersStore.API.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(Core.CoreModels.Product[]), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ProductResponse[]), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetProducts()
         {
-           var products = await _productService.Get();
+            var userId = GetUser();
+
+            var products = await _productService.Get(userId);
 
             if (products == null)
             {
                 throw new ArgumentNullException(nameof(products));
             }
 
-            return Ok(products);
+            return Ok(products.Select(f => new ProductResponse()
+            {
+                Name = f.Name,
+                Amount = f.Amount,
+                Color = f.Color,
+                Description = f.Description,
+                Price = f.Price,
+                ProviderName = _userService.GetById(f.UserId).Result.Name
+            }));
         }
 
         [HttpPost("{update}")]
         [ProducesResponseType(typeof(CreatedProduct), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> UpdateProduct(NewProduct request)
         {
+            request.UserId = GetUser();
+
             var newProduct = _mapper.Map<NewProduct, Core.CoreModels.Product>(request);
 
             var productName = await _productService.Update(newProduct);
@@ -71,12 +91,14 @@ namespace API_FlowersStore.API.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<IActionResult> DeleteProduct(string ProductName)
         {
+            var userId = GetUser();
+
             if (string.IsNullOrEmpty(ProductName))
             {
                 throw new ArgumentException(nameof(ProductName));
             }
 
-            var result = await _productService.Delete(ProductName);
+            var result = await _productService.Delete(ProductName, userId);
 
             if (!result)
             {
@@ -84,6 +106,19 @@ namespace API_FlowersStore.API.Controllers
             }
 
             return Ok();
+        }
+
+        [NonAction]
+        private int GetUser()
+        {
+            var userId = Helpers.GetUser(this);
+
+            if (userId <= default(int))
+            {
+                throw new ArgumentNullException(nameof(userId));
+            }
+
+            return userId;
         }
     }
 }

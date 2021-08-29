@@ -6,7 +6,11 @@ namespace API_FlowersStore.Core.Services
     public interface IUserService
     {
         Task<User[]> GetAll();
+
         Task<User> GetByNameAndPassword(string name, string password);
+
         Task<User> GetById(int id);
+
+        Task<User> GetByUserName(string userName);
     }
 }
