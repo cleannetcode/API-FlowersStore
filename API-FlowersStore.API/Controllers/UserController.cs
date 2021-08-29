@@ -23,7 +23,7 @@ namespace API_FlowersStore.API.Controllers
             _mapper = mapper;
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = ApplicationIdentityRole.Admin)]
         [HttpGet("GetAll")]
         [ProducesResponseType(typeof(Contracts.User), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetAll()
@@ -33,7 +33,7 @@ namespace API_FlowersStore.API.Controllers
             return Ok(contractUsers);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = ApplicationIdentityRole.Admin)]
         [HttpGet("GetById")]
         [ProducesResponseType(typeof(Contracts.User), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetById(int id)
@@ -43,7 +43,7 @@ namespace API_FlowersStore.API.Controllers
             return Ok(contractUser);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = ApplicationIdentityRole.Admin)]
         [HttpPost("GetByNameAndPassword")]
         [ProducesResponseType(typeof(Contracts.User), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetByNameAndPassword(UserCredentials userCredentials)
