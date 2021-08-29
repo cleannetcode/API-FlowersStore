@@ -8,7 +8,7 @@ namespace API_FlowersStore.API
         public APIMappingProfile()
         {
             CreateMap<Contracts.NewProduct, Core.CoreModels.Product>();
-
+            CreateMap<Contracts.User, Core.CoreModels.User>().ReverseMap();
         }
     }
 }

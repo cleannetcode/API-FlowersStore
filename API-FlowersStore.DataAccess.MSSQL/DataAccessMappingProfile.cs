@@ -7,6 +7,7 @@ namespace API_FlowersStore.DataAccess.MSSQL
         public DataAccessMappingProfile()
         {
             CreateMap<Entities.Product, Core.CoreModels.Product>().ReverseMap();
+            CreateMap<Entities.User, Core.CoreModels.User>().ReverseMap();
         }
     }
 }

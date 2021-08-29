@@ -1,4 +1,6 @@
 ﻿using API_FlowersStore.API.Contracts;
+using API_FlowersStore.Core.Services;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -17,32 +19,40 @@ namespace API_FlowersStore.API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        private readonly IUserService _userService;
+        private readonly IMapper _mapper;
+
+        public AuthController(IUserService userService, IMapper mapper)
+        {
+            _userService = userService;
+            _mapper = mapper;
+        }
+
         /// <summary>
         /// Получить токен для поставщика.
         /// </summary>
         /// <returns>Токен для доступа к API.</returns>
         [HttpPost]
-        public async Task<IActionResult> GetTokenForProvider(ProviderCredentials providerCredentials)
+        public async Task<IActionResult> GetTokenForProvider(UserCredentials userCredentials)
         {
-            //var provider = await _providerService.GetProvider();
-            var provider = new { Id = 1, Name = "Пятерочка", Password = "555" };
+            var user = await _userService.GetByNameAndPassword(userCredentials.Name, userCredentials.Password);
 
-            if (provider != null)
+            if (user != null)
             {
-                // List<string> roles = await _providerService.GetRoles(provider)
+                // List<string> roles = await _userService.GetRoles(provider)
                 var roles = new List<string>()
                 {
-                    new string("Provider")
+                    new string(user.Role)
                 };
 
                 if (roles == null)
-                    return BadRequest($"No roles for: {provider.Name}");
+                    return BadRequest($"No roles for: {user.Name}");
 
                 var rolesString = String.Join(",", roles);
 
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, provider.Name),
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.Name),
                     new Claim(ClaimsIdentity.DefaultRoleClaimType, rolesString)
                 };
 
@@ -64,9 +74,10 @@ namespace API_FlowersStore.API.Controllers
 
                 return Ok(new { Token = tokenString });
             }
-
-
-            throw new NotImplementedException();
+            else
+            {
+                return Unauthorized("Not authorized.");
+            }
         }
     }
 }

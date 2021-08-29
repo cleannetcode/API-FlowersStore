@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 namespace API_FlowersStore.API.Contracts
 {
     /// <summary>
-    /// Учетные данные поставщика.
+    /// Учетные данные пользователя системы (поставщик, админ и т.д. ).
     /// </summary>
-    public class ProviderCredentials
+    public class UserCredentials
+
     {
         public string Name { get; set; }
         public string Password { get; set; }
