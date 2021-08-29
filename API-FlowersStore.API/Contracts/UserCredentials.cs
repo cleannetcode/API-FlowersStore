@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace API_FlowersStore.API.Contracts
+﻿namespace API_FlowersStore.API.Contracts
 {
     /// <summary>
     /// Учетные данные пользователя системы (поставщик, админ и т.д. ).

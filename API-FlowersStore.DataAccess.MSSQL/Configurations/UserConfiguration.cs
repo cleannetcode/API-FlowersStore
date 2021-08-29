@@ -61,7 +61,7 @@ namespace API_FlowersStore.DataAccess.MSSQL.Configurations
                         Email = "TheBouqs@gmail.com",
                         CreatedDate = DateTime.Now,
                         Password = "123",
-                        Role = "Provider"
+                        Role = "Customer"
                     }
                 }
             );
