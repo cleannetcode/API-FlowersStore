@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace API_FlowersStore.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -22,8 +23,9 @@ namespace API_FlowersStore.API.Controllers
             _mapper = mapper;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetAll")]
-        //[ProducesResponseType(typeof(Contracts.User), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(Contracts.User), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetAll()
         {
             var users = await _userService.GetAll();
@@ -31,8 +33,9 @@ namespace API_FlowersStore.API.Controllers
             return Ok(contractUsers);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetById")]
-        //[ProducesResponseType(typeof(Contracts.User), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(Contracts.User), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetById(int id)
         {
             var user = await _userService.GetById(id);
@@ -40,8 +43,9 @@ namespace API_FlowersStore.API.Controllers
             return Ok(contractUser);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("GetByNameAndPassword")]
-        //[ProducesResponseType(typeof(Contracts.User), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(Contracts.User), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetByNameAndPassword(UserCredentials userCredentials)
         {
             var user = await _userService.GetByNameAndPassword(userCredentials.Name, userCredentials.Password);

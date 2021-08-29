@@ -104,6 +104,8 @@ namespace API_FlowersStore.API
                         new List<string>()
                     }
                 });
+
+                c.CustomSchemaIds(type => type.ToString());
             });
         }
 

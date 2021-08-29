@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -33,6 +34,7 @@ namespace API_FlowersStore.API.Controllers
         /// </summary>
         /// <returns>Токен для доступа к API.</returns>
         [HttpPost]
+        [ProducesResponseType(typeof(TokenContract), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetTokenForProvider(UserCredentials userCredentials)
         {
             var user = await _userService.GetByNameAndPassword(userCredentials.Name, userCredentials.Password);
@@ -72,7 +74,7 @@ namespace API_FlowersStore.API.Controllers
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 var tokenString = tokenHandler.WriteToken(token);
 
-                return Ok(new { Token = tokenString });
+                return Ok(new TokenContract{ Token = tokenString });
             }
             else
             {
