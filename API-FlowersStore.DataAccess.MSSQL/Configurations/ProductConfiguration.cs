@@ -16,7 +16,7 @@ namespace API_FlowersStore.DataAccess.MSSQL.Configurations
             builder.Property(x => x.Name).HasMaxLength(40).IsRequired();
             builder.Property(x => x.Description).HasMaxLength(250);
             builder.Property(x => x.Color).HasMaxLength(40);
-            builder.Property(x => x.Price).HasPrecision(38, 18);
+            builder.Property(x => x.Price).HasPrecision(6, 2);
 
             builder.HasMany(x => x.Supplies)
                 .WithOne(x => x.Product)

@@ -3,6 +3,7 @@ using API_FlowersStore.Core.Repositories;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -69,20 +70,32 @@ namespace API_FlowersStore.DataAccess.MSSQL.Repositories
         public async Task<Product> GetByName(string productName, int userId)
         {
             var product = await _context.Products
-                      .Where(x => x.Name == productName && x.Amount == userId)
+                      .Where(x => x.Name == productName && x.UserId == userId)
                       .AsNoTracking()
                       .FirstOrDefaultAsync();
+
+            if (product == null)
+            {
+                throw new ArgumentNullException("Product not found.");
+            }
 
             return _mapper.Map<Entities.Product, Core.CoreModels.Product>(product);
         }
 
         public async Task<Product[]> GetByOrders(int[] ordersId)
         {
-            var orders = await _context.Orders.Where(f => ordersId.Contains(f.Id)).ToArrayAsync();
+            var orders = _context.Orders.Where(f => ordersId.Contains(f.Id)).ToArray();
 
-            var products = await _context.Products.Where(f => orders.Any(ff => ff.ProductId == f.Id)).ToArrayAsync();
+            var products = new List<Entities.Product>();
 
-            return _mapper.Map<Entities.Product[], Core.CoreModels.Product[]>(products);
+            foreach (var o in orders)
+            {
+                products.Add(_context.Products.FirstOrDefault(f => f.Id == o.ProductId));
+            }
+
+           // var products = _context.Products.Where(f => orders.Any(ff => ff.ProductId == f.Id)).ToList();
+
+            return _mapper.Map<Entities.Product[], Core.CoreModels.Product[]>(products.ToArray());
         }
 
         public async Task<string> Update(Product product, int userId)

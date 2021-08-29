@@ -92,7 +92,7 @@ namespace API_FlowersStore.API.Controllers
                 Price = f.Price,
                 Quantity = request.FirstOrDefault(
                         x => x.ProductName == f.Name && _userService.GetById(f.UserId).Result.Name == x.ProviderName).Quantity.Value
-            });
+            }).ToArray();
 
             foreach (var f in orderProducts)
             {
@@ -135,11 +135,11 @@ namespace API_FlowersStore.API.Controllers
                     Color = products.FirstOrDefault(fff => fff.Id == ff.ProductId).Color,
                     Price = products.FirstOrDefault(fff => fff.Id == ff.ProductId).Price,
                     Quantity = ff.Quantity
-                });
+                }).ToArray();
 
                 foreach (var o in orderProducts)
                 {
-                    o.TotalPrice = (decimal)o.Quantity * o.Price;
+                    o.TotalPrice = ((decimal)o.Quantity) * (decimal)o.Price;
                 }
 
                 response.Add(new OrderResponse()
