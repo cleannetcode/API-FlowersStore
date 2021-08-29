@@ -6,6 +6,8 @@ namespace API_FlowersStore.DataAccess.MSSQL.Entities
     {
         public int Id { get; set; }
 
+        public int UserId { get; set; }
+
         public string Name { get; set; }
 
         public string Description { get; set; }
@@ -19,5 +21,7 @@ namespace API_FlowersStore.DataAccess.MSSQL.Entities
         public ICollection<Order> Orders { get; set; }
 
         public ICollection<Supply> Supplies { get; set; }
+
+        public User User { get; set; }
     }
 }

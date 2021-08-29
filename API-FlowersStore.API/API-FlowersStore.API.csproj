@@ -10,6 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.9" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.12.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.9">
@@ -28,10 +30,6 @@
     <ProjectReference Include="..\API-FlowersStore.BusinessLogic\API-FlowersStore.BusinessLogic.csproj" />
     <ProjectReference Include="..\API-FlowersStore.Core\API-FlowersStore.Core.csproj" />
     <ProjectReference Include="..\API-FlowersStore.DataAccess.MSSQL\API-FlowersStore.DataAccess.MSSQL.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

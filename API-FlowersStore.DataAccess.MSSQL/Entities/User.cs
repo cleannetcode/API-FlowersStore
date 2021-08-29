@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 
 namespace API_FlowersStore.DataAccess.MSSQL.Entities
@@ -13,9 +13,14 @@ namespace API_FlowersStore.DataAccess.MSSQL.Entities
 
         public string Password { get; set; }
 
+        public DateTime CreatedDate { get; set; }
+
         public string Role { get; set; }
 
         public ICollection<Supply> Supplies { get; set; }
+
         public ICollection<Order> Orders { get; set; }
+
+        public ICollection<Product> Products { get; set; }
     }
 }

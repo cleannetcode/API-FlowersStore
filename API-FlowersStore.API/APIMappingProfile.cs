@@ -1,0 +1,14 @@
+﻿using API_FlowersStore.API.Contracts;
+using AutoMapper;
+
+namespace API_FlowersStore.API
+{
+    public class APIMappingProfile : Profile
+    {
+        public APIMappingProfile()
+        {
+            CreateMap<Contracts.NewProduct, Core.CoreModels.Product>();
+
+        }
+    }
+}

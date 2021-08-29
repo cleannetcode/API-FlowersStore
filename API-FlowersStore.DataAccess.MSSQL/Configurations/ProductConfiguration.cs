@@ -10,11 +10,13 @@ namespace API_FlowersStore.DataAccess.MSSQL.Configurations
         {
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Name).HasMaxLength(40);
+            builder.HasIndex(p => new { p.Name, p.UserId })
+                   .IsUnique();
+
+            builder.Property(x => x.Name).HasMaxLength(40).IsRequired();
             builder.Property(x => x.Description).HasMaxLength(250);
             builder.Property(x => x.Color).HasMaxLength(40);
             builder.Property(x => x.Price).HasPrecision(38, 18);
-
 
             builder.HasMany(x => x.Supplies)
                 .WithOne(x => x.Product)
@@ -27,6 +29,12 @@ namespace API_FlowersStore.DataAccess.MSSQL.Configurations
                 .OnDelete(DeleteBehavior.NoAction)
                 .HasForeignKey(x => x.ProductId)
                 .IsRequired();
+
+            builder.HasOne(x => x.User)
+             .WithMany(x => x.Products)
+             .OnDelete(DeleteBehavior.NoAction)
+             .HasForeignKey(x => x.UserId)
+             .IsRequired();
         }
     }
 }

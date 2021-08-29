@@ -8,6 +8,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Collections.Generic;
+using API_FlowersStore.Core.Repositories;
+using API_FlowersStore.DataAccess.MSSQL.Repositories;
+using API_FlowersStore.Core.Services;
+using API_FlowersStore.BusinessLogic;
 
 namespace API_FlowersStore.API
 {
@@ -23,6 +27,13 @@ namespace API_FlowersStore.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(cfg =>
+            {
+                cfg.AddProfile<APIMappingProfile>();
+                cfg.AddProfile<DataAccessMappingProfile>();
+            });
+
+
             services.AddDbContext<APIFlowersStoreDbContext>(builder =>
             {
                 builder.UseSqlServer(Configuration.GetConnectionString("APIFlowersStoreDb"));
@@ -53,6 +64,9 @@ namespace API_FlowersStore.API
                     IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey()
                 };
             });
+
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IProductRepository, ProductRepository>();
 
             services.AddControllers();
 

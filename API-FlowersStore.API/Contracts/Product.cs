@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using API_FlowersStore.Core.CoreModels;
+using System.Collections.Generic;
 
-namespace API_FlowersStore.Core.CoreModels
+namespace API_FlowersStore.API.Contracts
 {
     public class Product
     {
