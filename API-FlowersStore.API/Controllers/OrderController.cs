@@ -52,7 +52,7 @@ namespace API_FlowersStore.API.Controllers
 
             foreach (var f in request)
             {
-                var providerUser = _userService.GetByUserName(f.ProviderName).Result;
+                var providerUser = await _userService.GetByUserName(f.ProviderName);
 
                 if (providerUser == null)
                 {

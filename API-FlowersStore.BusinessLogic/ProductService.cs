@@ -33,7 +33,7 @@ namespace API_FlowersStore.BusinessLogic
 
             if (string.IsNullOrEmpty(productName))
             {
-                throw new ArgumentException(nameof(productName));
+                throw new ArgumentNullException(nameof(productName));
             }
 
             return productName;
@@ -50,7 +50,7 @@ namespace API_FlowersStore.BusinessLogic
 
             if (string.IsNullOrEmpty(productName))
             {
-                throw new ArgumentException(nameof(productName));
+                throw new ArgumentNullException(nameof(productName));
             }
 
             return productName;
@@ -82,14 +82,14 @@ namespace API_FlowersStore.BusinessLogic
         {
             if (string.IsNullOrEmpty(productName))
             {
-                throw new ArgumentException(nameof(productName));
+                throw new ArgumentNullException(nameof(productName));
             }
 
             var product = await _productRepository.GetByName(productName, userId);
 
             if (product == null)
             {
-                throw new ArgumentException(nameof(product));
+                throw new ArgumentNullException(nameof(product));
             }
 
             return product;
@@ -99,7 +99,7 @@ namespace API_FlowersStore.BusinessLogic
         {
             if (ordersId == null)
             {
-                throw new ArgumentException(nameof(ordersId));
+                throw new ArgumentNullException(nameof(ordersId));
             }
 
             return await _productRepository.GetByOrders(ordersId);

@@ -74,10 +74,10 @@ namespace API_FlowersStore.DataAccess.MSSQL.Repositories
                       .AsNoTracking()
                       .FirstOrDefaultAsync();
 
-            if (product == null)
-            {
-                throw new ArgumentNullException("Product not found.");
-            }
+            //if (product == null)
+            //{
+            //    throw new ArgumentNullException("Product not found.");
+            //}
 
             return _mapper.Map<Entities.Product, Core.CoreModels.Product>(product);
         }
